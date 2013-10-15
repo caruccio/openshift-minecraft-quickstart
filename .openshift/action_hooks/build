@@ -1,0 +1,19 @@
+#!/bin/bash
+
+SERVER_PROPERTIES=server.properties
+MINECRAFT_SERVER_JAR=minecraft_server.jar
+
+cd $OPENSHIFT_DATA_DIR
+
+if [ ! -e $MINECRAFT_SERVER_JAR ]; then
+   wget https://s3.amazonaws.com/MinecraftDownload/launcher/minecraft_server.jar -O $MINECRAFT_SERVER_JAR
+fi
+
+if [ ! -e "$SERVER_PROPERTIES" ]; then
+   erb $OPENSHIFT_REPO_DIR/${SERVER_PROPERTIES}.erb > $SERVER_PROPERTIES
+fi 
+
+echo 'Now, execute on your local machine and connect your minecraft client using given IP:PORT'
+echo 
+echo " $ rhc port-forward -a $OPENSHIFT_APP_NAME"
+

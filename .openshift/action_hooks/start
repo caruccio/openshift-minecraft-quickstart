@@ -2,4 +2,6 @@
 # The logic to start up your application should be put in this
 # script. The application will work only if it binds to
 # $OPENSHIFT_DIY_IP:8080
-nohup $OPENSHIFT_REPO_DIR/diy/testrubyserver.rb $OPENSHIFT_DIY_IP $OPENSHIFT_REPO_DIR/diy > $OPENSHIFT_DIY_DIR/logs/server.log 2>&1 &
+
+cd $OPENSHIFT_DATA_DIR
+nohup bash -c "exec 'java' '-jar' 'minecraft_server.jar' '-Xms256M' '-Xmx490M' '-nogui' &> ${OPENSHIFT_DIY_LOG_DIR}minecraft.log" &> /dev/null &
